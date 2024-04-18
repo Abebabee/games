@@ -1,13 +1,16 @@
-const Navbar = () =>{
-    return(
-        <div>
-            <ul>
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-            </ul>
-        </div>
-    )
-}
+import ThemeToggle from "./ThemeToggle";
 
-export default Navbar
+const Navbar = () => {
+  return (
+    <div className="bg-accent flex items-center justify-between min-h-16">
+        <div>
+            <h1 className="text-primary text-lg font-bold pl-5">Gamedle</h1>
+        </div>
+        <div className="flex items-center pr-5">
+          <ThemeToggle />
+        </div>
+    </div>
+  );
+};
+
+export default Navbar;
