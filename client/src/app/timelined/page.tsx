@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import EventCard from "../components/timelined/EventCard";
 import Button from "../components/Button";
@@ -19,10 +20,13 @@ const TimeLined: React.FC = () => {
           </div>
         </div>
       </div>
-      <EventCard
-        name={"WW2"}
-        description={"The start of World War 2"}
-      ></EventCard>
+      <div className="w-full">
+        <EventCard
+          name={"WW2"}
+          description={"The start of World War 2"}
+        ></EventCard>
+      </div>
+
       <div className="flex justify-center items-center">
         <div className="relative w-full h-2 rounded-full bg-primary m-20 mt-0">
           {nodes.map((node, index) => (
