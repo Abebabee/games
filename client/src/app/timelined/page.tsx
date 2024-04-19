@@ -1,6 +1,6 @@
-// TimeLined.tsx
-
 import React from "react";
+import EventCard from "../components/timelined/EventCard";
+import Button from "../components/Button";
 
 const TimeLined: React.FC = () => {
   const nodes = [
@@ -13,12 +13,18 @@ const TimeLined: React.FC = () => {
     <div className="min-h-[calc(100vh-4rem)] bg-background">
       <div>
         <div className="flex flex-col justify-center items-center p-8">
-          <div className="text-primary text-lg">TimeLined</div>
-          <div className="text-secondary_foreground">Sort the events in the correct order in 3 tries</div>
+          <div className="text-primary text-lg font-semibold">TimeLined</div>
+          <div className="text-secondary_foreground">
+            Drag the events in the correct order in 3 tries
+          </div>
         </div>
       </div>
+      <EventCard
+        name={"WW2"}
+        description={"The start of World War 2"}
+      ></EventCard>
       <div className="flex justify-center items-center">
-        <div className="relative w-full h-2 rounded-full bg-primary m-10">
+        <div className="relative w-full h-2 rounded-full bg-primary m-20 mt-0">
           {nodes.map((node, index) => (
             <React.Fragment key={index}>
               <div
@@ -49,6 +55,9 @@ const TimeLined: React.FC = () => {
             </React.Fragment>
           ))}
         </div>
+      </div>
+      <div className="flex justify-end mr-10">
+        <Button name={"Submit"} href={"/"}></Button>
       </div>
     </div>
   );
