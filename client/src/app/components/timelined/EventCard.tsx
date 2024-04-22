@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { MouseEvent, useEffect, useRef, useState } from "react";
+import Draggable from "react-draggable";
 
 interface EventCardProps {
   name: string;
@@ -6,48 +7,61 @@ interface EventCardProps {
 }
 
 const EventCard: React.FC<EventCardProps> = ({ name, description }) => {
-  const [isDragging, setIsDragging] = useState(false);
-  const [positionX, setPositionX] = useState(0);
-  const [startX, setStartX] = useState(0);
-
-  const handleMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
-    setIsDragging(true);
-    setStartX(event.clientX - positionX);
-  };
-
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (isDragging) {
-      const newPositionX = event.clientX - startX;
-      const parentWidth = event.currentTarget.parentElement?.clientWidth ?? 0;
-      const cardWidth = event.currentTarget.clientWidth;
-      const maxPositionX = parentWidth - cardWidth;
-      setPositionX(Math.max(0, Math.min(newPositionX, maxPositionX)));
+  const [year, setYear] = useState<string>("");
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [zIndex, setZIndex] = useState("z-10");
+  
+  //Calc "year" based on where card is on the x-axis
+  useEffect(() => {
+    const parentWidth = document.querySelector('.parent')?.clientWidth ?? 0;
+    const cardWidth = 160;
+    const maxPositionX = parentWidth - cardWidth;
+    const percent = (position.x / maxPositionX) * 100;
+    if (percent <= 0) {
+      setYear("2000 BCE");
+    } else if (percent >= 100) {
+      setYear("2000 CE");
+    } else {
+      const yearDiff = Math.round((percent / 100) * 4000);
+      const era = yearDiff <= 2000 ? "BCE" : "CE";
+      const absYear = era === "BCE" ? 2000 - yearDiff : yearDiff - 2000;
+      setYear(`${absYear} ${era}`);
     }
+  }, [position]);
+  
+  //Update pos on drag
+  const trackPos = (data: any) => {
+    setPosition({ x: data.x, y: data.y });
+  };
+  //Z-index toggle to always push dragged card to front
+  const handleStart = () => {
+    setZIndex("z-20");
   };
 
-  const handleMouseUp = () => {
-    setIsDragging(false);
+  const handleStop = () => {
+    setZIndex("z-10");
   };
 
   return (
-    <div
-      className="max-w-40"
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
+    <Draggable
+      axis="x"
+      onDrag={(e, data) => trackPos(data)}
+      bounds="parent"
+      onStart={handleStart}
+      onStop={handleStop}
     >
-      <div
-        className="flex flex-col max-h-40 max-w-40 bg-card text-foreground text-center rounded-lg p-5 border border-primary"
-        style={{ transform: `translateX(${positionX}px)` }}
-      >
-        <div className="text-lg font-semibold">{name}</div>
-        <div className="text-sm font-normal">{description}</div>
+      <div className={`absolute top-0 max-w-40 cursor-pointer ${zIndex}`}>
+      <div className="bg-primary_hover h-8 w-1 relative bottom-0 left-1/2"></div>
+        <div className="flex flex-col max-w-40 min-w-40 min-h-40 bg-card text-foreground text-center rounded-lg p-5 border border-primary select-none">
+          <div className="text-lg font-semibold">{name}</div>
+          <div className="text-xs font-normal">{description}</div>
+          <div className="text-primary bg-muted_foreground rounded-lg p-1">
+            ~{year}
+          </div>
+        </div>
+        
       </div>
-      <div
-        className="bg-primary_hover h-8 w-1 relative bottom-0 left-1/2"
-        style={{ transform: `translateX(${positionX}px)` }}
-      ></div>
-    </div>
+    </Draggable>
   );
 };
 

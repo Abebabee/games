@@ -6,8 +6,40 @@ import Button from "../components/Button";
 const TimeLined: React.FC = () => {
   const nodes = [
     { year: "2000 BCE", position: "0%" },
-    { year: "1 AD", position: "50%" },
-    { year: "2000 AD", position: "100%" },
+    { year: "1 CE", position: "50%" },
+    { year: "2000 CE", position: "100%" },
+  ];
+  const historicalEvents = [
+    {
+      name: "Roman Empire Established",
+      description:
+        "The city of Rome is traditionally founded, marking the beginning of the Roman Empire.",
+      year: "753 BCE",
+    },
+    {
+      name: "Battle of Hastings",
+      description:
+        "William the Conqueror defeats King Harold II of England, leading to the Norman conquest of England.",
+      year: "1066 CE",
+    },
+    {
+      name: "Columbus Reaches the Americas",
+      description:
+        "Christopher Columbus arrives in the Americas, initiating European exploration and colonization.",
+      year: "1492 CE",
+    },
+    {
+      name: "French Revolution Begins",
+      description:
+        "The French Revolution erupts with the storming of the Bastille, leading to radical political and social changes in France.",
+      year: "1789 CE",
+    },
+    {
+      name: "First Moon Landing",
+      description:
+        "Apollo 11 mission successfully lands astronauts Neil Armstrong and Buzz Aldrin on the moon.",
+      year: "1969 CE",
+    },
   ];
 
   return (
@@ -20,16 +52,22 @@ const TimeLined: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="w-full">
-        <EventCard
-          name={"WW2"}
-          description={"The start of World War 2"}
-        ></EventCard>
+      <div className="flex justify-end mr-10 mb-10">
+        <Button name={"Submit"} href={"/"}></Button>
+      </div>
+      <div className="w-full relative flex flex-row parent">
+        {historicalEvents.map((event, index) => (
+          <EventCard
+            key={index}
+            name={event.name}
+            description={event.description}
+          />
+        ))}
       </div>
 
       <div className="flex justify-center items-center">
-        <div className="relative w-full h-2 rounded-full bg-primary m-20 mt-0">
-          {nodes.map((node, index) => (
+        <div className="relative w-full h-2 rounded-full bg-primary m-20 mt-0 timeline">
+        {nodes.map((node, index) => (
             <React.Fragment key={index}>
               <div
                 className="absolute w-2 h-2 bg-red-500 rounded-full"
@@ -51,7 +89,8 @@ const TimeLined: React.FC = () => {
                 className="absolute mt-3 text-foreground"
                 style={{
                   left: node.position,
-                  transform: "translate(-50%, 10px)",
+                  top: "calc(-100% - 35px)", // Adjusted position to be above the timeline
+                  transform: "translateX(-50%)", // Center horizontally
                 }}
               >
                 {node.year}
@@ -60,9 +99,7 @@ const TimeLined: React.FC = () => {
           ))}
         </div>
       </div>
-      <div className="flex justify-end mr-10">
-        <Button name={"Submit"} href={"/"}></Button>
-      </div>
+      
     </div>
   );
 };
