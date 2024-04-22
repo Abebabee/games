@@ -4,9 +4,10 @@ import Draggable from "react-draggable";
 interface EventCardProps {
   name: string;
   description: string;
+  updateYear: (name: string, newYear: string) => void;
 }
 
-const EventCard: React.FC<EventCardProps> = ({ name, description }) => {
+const EventCard: React.FC<EventCardProps> = ({ name, description, updateYear}) => {
   const [year, setYear] = useState<string>("");
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [zIndex, setZIndex] = useState("z-10");
@@ -27,6 +28,7 @@ const EventCard: React.FC<EventCardProps> = ({ name, description }) => {
       const absYear = era === "BCE" ? 2000 - yearDiff : yearDiff - 2000;
       setYear(`${absYear} ${era}`);
     }
+    updateYear(name, year);
   }, [position]);
   
   //Update pos on drag
@@ -49,13 +51,14 @@ const EventCard: React.FC<EventCardProps> = ({ name, description }) => {
       bounds="parent"
       onStart={handleStart}
       onStop={handleStop}
+      defaultClassName="event-card"
     >
-      <div className={`absolute top-0 max-w-40 cursor-pointer ${zIndex}`}>
+      <div className={`absolute top-0 max-w-40 cursor-pointer ${zIndex}` }>
       <div className="bg-primary_hover h-8 w-1 relative bottom-0 left-1/2"></div>
         <div className="flex flex-col max-w-40 min-w-40 min-h-40 bg-card text-foreground text-center rounded-lg p-5 border border-primary select-none">
-          <div className="text-lg font-semibold">{name}</div>
+          <div className="text-lg font-semibold name">{name}</div>
           <div className="text-xs font-normal">{description}</div>
-          <div className="text-primary bg-muted_foreground rounded-lg p-1">
+          <div className="text-primary bg-muted_foreground rounded-lg p-1 year-guess">
             ~{year}
           </div>
         </div>
