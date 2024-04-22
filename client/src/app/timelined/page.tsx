@@ -1,9 +1,11 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import EventCard from "../components/timelined/EventCard";
 import Button from "../components/Button";
+import { FaHeart, FaHeartBroken } from "react-icons/fa";
 
 const TimeLined: React.FC = () => {
+  const [guessesLeft, setGuessesLeft] = useState(3);
   const nodes = [
     { year: "2000 BCE", position: "0%" },
     { year: "1 CE", position: "50%" },
@@ -41,6 +43,9 @@ const TimeLined: React.FC = () => {
       year: "1969 CE",
     },
   ];
+  const handleSubmit = () =>{
+    setGuessesLeft(guessesLeft-1);
+  }
 
   return (
     <div className="min-h-[calc(100vh-4rem)] bg-background">
@@ -50,10 +55,21 @@ const TimeLined: React.FC = () => {
           <div className="text-secondary_foreground">
             Drag the events in the correct order in 3 tries
           </div>
+          <div className="flex flex-row text-primary space-x-2 pt-2">
+            {Array.from({ length: 3 }, (_, index) => (
+              <React.Fragment key={index}>
+                {index < guessesLeft ? (
+                  <FaHeart size={20}/>
+                ) : (
+                  <FaHeartBroken className="text-primary_hover" size={20}/>
+                )}
+              </React.Fragment>
+            )).reverse()}
+          </div>
         </div>
       </div>
       <div className="flex justify-end mr-10 mb-10">
-        <Button name={"Submit"} href={"/"}></Button>
+        <Button name={"Submit"} href={"#"} onClick={handleSubmit}></Button>
       </div>
       <div className="w-full relative flex flex-row parent">
         {historicalEvents.map((event, index) => (
