@@ -6,9 +6,13 @@ import { FaHeart, FaHeartBroken } from "react-icons/fa";
 
 const TimeLined: React.FC = () => {
   const [guessesLeft, setGuessesLeft] = useState(3);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [eventsData, setEventsData] = useState<
     { name: string; year: string }[]
   >([]);
+  const [correctGuesses, setCorrectGuesses] = useState<number[]>([]);
+  const [correctNames, setCorrectNames] = useState<string[]>([]);
+
   const nodes = [
     { year: "2000 BCE", position: "0%" },
     { year: "1 CE", position: "50%" },
@@ -52,19 +56,20 @@ const TimeLined: React.FC = () => {
   //Compares the "correct" array to the users guessed array
   const compareEvents = () => {
     const correctPositions: number[] = [];
+    const newCorrectNames: string[] = [];
     for (let i = 0; i < eventsData.length; i++) {
       if (eventsData[i].name === sortedEvents[i].name) {
         correctPositions.push(i);
+        //correctNames.push(sortedEvents[i].name);
+        newCorrectNames.push(sortedEvents[i].name);
       }
     }
     if (correctPositions.length === eventsData.length) {
       console.log("CORRECT!");
     } else if (correctPositions.length > 0) {
-      console.log(
-        "Some events are in the correct positions:",
-        correctPositions.join(", ")
-      );
+      setCorrectGuesses(correctGuesses);
     }
+    setCorrectNames(newCorrectNames)
   };
 
   //Sorts events by lowest->highest year
@@ -84,8 +89,8 @@ const TimeLined: React.FC = () => {
   const sortedEvents = sortByYear(historicalEvents);
 
   const handleSubmit = () => {
-    //Check if eventData names are in same order as sortedEvents names
     compareEvents();
+    setIsSubmitted(true);
     setGuessesLeft(guessesLeft - 1);
   };
   useEffect(() => {
@@ -133,6 +138,9 @@ const TimeLined: React.FC = () => {
             name={event.name}
             description={event.description}
             updateYear={updateYear}
+            cardColor={
+              correctNames.includes(event.name) && isSubmitted ? "bg-green" : ""
+            }
           />
         ))}
       </div>

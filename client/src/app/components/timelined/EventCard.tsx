@@ -4,6 +4,7 @@ import Draggable from "react-draggable";
 interface EventCardProps {
   name: string;
   description: string;
+  cardColor?:string;
   updateYear: (name: string, newYear: string) => void;
 }
 
@@ -11,11 +12,15 @@ const EventCard: React.FC<EventCardProps> = ({
   name,
   description,
   updateYear,
+  cardColor
 }) => {
   const [year, setYear] = useState<string>("");
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [zIndex, setZIndex] = useState("z-10");
   const nodeRef = useRef(null);
+  if(!cardColor){
+    cardColor = "bg-card"
+  }
 
   //Calc "year" based on where card is on the x-axis
   useEffect(() => {
@@ -59,12 +64,15 @@ const EventCard: React.FC<EventCardProps> = ({
       defaultClassName="event-card"
       nodeRef={nodeRef}
     >
-      <div className={`absolute top-0 max-w-40 cursor-pointer ${zIndex}`} ref={nodeRef}>
+      <div
+        className={`absolute top-0 max-w-40 cursor-pointer ${zIndex}`}
+        ref={nodeRef}
+      >
         <div className="bg-primary_hover h-8 w-1 relative bottom-0 left-1/2"></div>
-        <div className="flex flex-col max-w-40 min-w-40 min-h-40 bg-card text-foreground text-center rounded-lg p-5 border border-primary select-none">
+        <div className={`flex flex-col max-w-40 min-w-40 min-h-40 text-foreground text-center rounded-lg p-5 border border-primary select-none ${cardColor}`}>
           <div className="text-lg font-semibold name">{name}</div>
           <div className="text-xs font-normal">{description}</div>
-          <div className="text-primary bg-muted_foreground rounded-lg p-1 year-guess">
+          <div className="text-foreground bg-muted_foreground rounded-lg p-1 mt-2 year-guess">
             ~{year}
           </div>
         </div>
