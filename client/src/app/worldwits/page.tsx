@@ -5,8 +5,10 @@ import stringSimilarity from "string-similarity-js";
 import React from "react";
 import { FaHeart, FaHeartBroken } from "react-icons/fa";
 import Modal from "../components/worldwits/modal";
+import { useRouter } from "next/navigation";
 
 const WorldWits: React.FC = () => {
+  const router = useRouter();
   const [userInput, setUserInput] = useState("");
   const [guesses, setGuesses] = useState(5);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,16 +45,14 @@ const WorldWits: React.FC = () => {
     if (similarity >= 0.8) {
       setResult("Win");
       setGameoverMsg(
-        "You solved it in " + (5 - guesses) + " tries, well done!"
+        "You solved it in " + (5 - guesses) + " tries, see you tomorrow!"
       );
       setBg("bg-green");
       setIsModalOpen(true);
     } else {
       if (guesses === 0) {
         setResult("Lose");
-        setGameoverMsg(
-          "You didn't solve todays game, try again tomorrow!"
-        );
+        setGameoverMsg("You didn't solve todays game, try again tomorrow!");
         setBg("bg-primary");
         setIsModalOpen(true);
       } else {
@@ -60,17 +60,18 @@ const WorldWits: React.FC = () => {
       }
     }
   };
-  const handleCloseModal = () =>{
-    setIsModalOpen(false)
-  }
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    router.push('/');
+  };
 
   return (
     <div className="min-h-[calc(100vh-4rem)] bg-background flex flex-col items-center">
       {isModalOpen && (
         <Modal
-          header={"Win"}
-          text={"You solved it in " + (5 - guesses) + " tries!"}
-          color={"bg-green"}
+          header={result}
+          text={gameoverMsg}
+          color={bg}
           onClose={handleCloseModal}
         ></Modal>
       )}

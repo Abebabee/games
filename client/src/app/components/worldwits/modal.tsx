@@ -8,17 +8,9 @@ interface ModalProps {
   onClose: () => void;
 }
 const Modal = ({ header, text, color, onClose }: ModalProps) => {
-  const modalRef = useRef(null);
-
-  const handleClose = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (event.target === modalRef.current) {
-      onClose();
-    }
-  };
-
   return (
     <div className="fixed top-0 left-0 w-full h-full flex justify-center backdrop-blur-sm items-center"
-    onClick={onClose} ref={modalRef}>
+    onClick={onClose}>
       <div
         className={`p-6 flex flex-col justify-center items-center text-center rounded-lg shadow-lg ${color}`}
       >
