@@ -2,7 +2,7 @@
 
 ## Description
 
-A site with small puzze/dle type games.
+A site with small puzzle/dle type games.
 
 ## Technologies Used
 
