@@ -26,6 +26,8 @@ Follow these steps to install and run the app locally:
 5. Open your browser and visit `http://localhost:3000` to view the app.
 
 ## Roadmap(ish)
+- [ ] sql db
+- [ ] GCS?
 - [ ] Fix issue with X component not rendering correctly
 - [ ] Mobile friendly
 - [ ] Testing
