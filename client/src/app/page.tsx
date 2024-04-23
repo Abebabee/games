@@ -26,7 +26,7 @@ const IndexPage = () => {
             gameUrl="/worldwits"
             imageUrl={"WorldWits.png"}
             description={
-              "Guess the famous location based on as few hints as possible"
+              "Guess the famous location based on as few hints as possible (updates daily)"
             }
           />
           <GameCard
