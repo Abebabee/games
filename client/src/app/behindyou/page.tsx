@@ -1,31 +1,22 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import Button from "../components/Button";
-import stringSimilarity from "string-similarity-js";
-import React from "react";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { FaHeart, FaHeartBroken } from "react-icons/fa";
+import stringSimilarity from "string-similarity-js";
 import Modal from "../components/modal";
 import { useRouter } from "next/navigation";
 
-const WorldWits: React.FC = () => {
-  const router = useRouter();
-  const [userInput, setUserInput] = useState("");
+const BehindYou = () => {
   const [guesses, setGuesses] = useState(5);
+  const [userInput, setUserInput] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [gameoverMsg, setGameoverMsg] = useState("");
   const [result, setResult] = useState("");
   const [bg, setBg] = useState("");
+  const router = useRouter();
+  const location = "Taj Mahal";
 
-  const famousLocation = {
-    name: "Eiffel Tower",
-    hints: [
-      "This iconic iron structure is located in the heart of a European capital known for its romance and art.",
-      "It was constructed as the entrance arch for the 1889 World's Fair and has since become a symbol of France.",
-      "The architect behind this masterpiece also played a key role in designing the framework of a famous statue gifted to the United States.",
-      "At a height of over 300 meters, it was once the tallest man-made structure in the world.",
-      "Every year, millions of tourists flock to this landmark to marvel at its beauty and breathtaking views of the city.",
-    ],
-  };
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput(event.target.value);
   };
@@ -34,14 +25,10 @@ const WorldWits: React.FC = () => {
       handleSubmit();
     }
   };
-
   const handleSubmit = () => {
     setGuesses(guesses - 1);
     //Dice coefficient to check similarity of guess and actual name
-    const similarity = stringSimilarity(
-      userInput.toLowerCase(),
-      famousLocation.name.toLowerCase()
-    );
+    const similarity = stringSimilarity(userInput.toLowerCase(), location);
     if (similarity >= 0.8) {
       setResult("Win");
       setGameoverMsg(
@@ -62,11 +49,11 @@ const WorldWits: React.FC = () => {
   };
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    router.push('/');
+    router.push("/");
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-background flex flex-col items-center">
+    <div className="min-h-[calc(100vh-4rem)] bg-background flex flex-col justify-center items-center">
       {isModalOpen && (
         <Modal
           header={result}
@@ -75,39 +62,35 @@ const WorldWits: React.FC = () => {
           onClose={handleCloseModal}
         ></Modal>
       )}
-
-      <div className="flex flex-col justify-center items-center p-6 text-secondary_foreground">
-        <div className="text-primary text-2xl font-semibold">WorldWits</div>
-        <div>Guess the famous location in as few hints as possible!</div>
-        <div>A new hint is revealed after an incorrect guess</div>
-      </div>
       <div className="flex flex-row text-primary space-x-2 pb-4">
+        <div className="flex flex-row items-center space-x-1 bg-muted rounded-lg p-2">
         {Array.from({ length: 5 }, (_, index) => (
           <React.Fragment key={index}>
             {index < guesses ? (
-              <div className="flex flex-row">
                 <FaHeart size={20} />
-              </div>
             ) : (
               <FaHeartBroken className="text-primary_hover" size={20} />
             )}
           </React.Fragment>
         )).reverse()}
-        <p className="pl-2">Guesses left: {guesses}</p>
+        </div>
+        <p className="p-2">Guesses left: {guesses}</p>
       </div>
-      <div className="bg-card text-foreground flex flex-col justify-center items-center rounded-lg shadow border border-border p-4">
-        <div></div>
-        <div className="space-y-2 max-w-sm">
-          <div>
-            <div className="underline">Hint 1:</div>
-            <div>{famousLocation.hints[0]}</div>
-          </div>
-          {famousLocation.hints.slice(1, 6 - guesses).map((hint, index) => (
-            <div key={index}>
-              <div className="underline">Hint {index + 2}:</div>
-              <div>{hint}</div>
-            </div>
-          ))}
+      <div className="flex flex-col justify-center items-center text-foreground pb-5 container mx-auto rounded-lg pt-6">
+        <div>
+          <TransformWrapper>
+            <TransformComponent>
+              <img
+                src="BehindYou_entry.png"
+                alt=""
+                className="object-contain mx-auto pt-4 rounded-lg"
+                width={"80%"}
+              />
+            </TransformComponent>
+          </TransformWrapper>
+        </div>
+        <div className="pt-4">
+          <p>What famous place lies behind you?</p>
         </div>
         <div>
           <input
@@ -123,5 +106,4 @@ const WorldWits: React.FC = () => {
     </div>
   );
 };
-
-export default WorldWits;
+export default BehindYou;

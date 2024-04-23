@@ -30,11 +30,11 @@ const IndexPage = () => {
             }
           />
           <GameCard
-            gameName={"Game 4"}
-            gameUrl="/higherlower"
-            imageUrl={"https://placehold.co/400x400"}
+            gameName={"BehindYou"}
+            gameUrl="/behindyou"
+            imageUrl={"BehindYou.png"}
             description={
-              "Guess if country has higher or lower population than the other country"
+              "You are looking away from a famous building/location, guess where! (updates daily)"
             }
           />
         </div>
