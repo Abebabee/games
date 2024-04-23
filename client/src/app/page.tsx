@@ -6,27 +6,27 @@ const IndexPage = () => {
       <div className="container mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           <GameCard
-            gameName={"Higher/Lower"}
+            gameName={"PopulationGuessr"}
             gameUrl="/higherlower"
-            imageUrl={"https://placehold.co/600x400"}
+            imageUrl={"PopulationGuessr.png"}
             description={
               "Guess if country has higher or lower population than the other country"
             }
           />
           <GameCard
-            gameName={"Game 2"}
-            gameUrl="/higherlower"
-            imageUrl={"https://placehold.co/200x400"}
+            gameName={"TimeLined"}
+            gameUrl="/timelined"
+            imageUrl={"TimeLined.png"}
             description={
-              "Guess if country has higher or lower population than the other country"
+              "Drag historical events in the correct order in 3 tries (updates daily)"
             }
           />
           <GameCard
-            gameName={"Game 3"}
-            gameUrl="/higherlower"
-            imageUrl={"https://placehold.co/400x400"}
+            gameName={"WorldWits"}
+            gameUrl="/worldwits"
+            imageUrl={"WorldWits.png"}
             description={
-              "Guess if country has higher or lower population than the other country"
+              "Guess the famous location based on as few hints as possible"
             }
           />
           <GameCard

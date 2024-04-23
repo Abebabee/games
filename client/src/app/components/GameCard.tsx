@@ -13,11 +13,11 @@ const GameCard = ({ gameName, imageUrl, description, gameUrl }: GameCardProps) =
     <div className="max-w-sm bg-card border border-border overflow-hidden rounded-lg shadow text-foreground">
       <img
         alt={gameName}
-        className="h-60 w-full object-cover"
+        className="h-60 w-full object-cover inset-0 shadow-lg border-2 border-border"
         src={imageUrl}
         style={{
-          aspectRatio: "400/300",
-          objectFit: "cover",
+          aspectRatio: "400/400",
+          
         }}
       />
       <div className="p-3">

@@ -60,7 +60,6 @@ const TimeLined: React.FC = () => {
     for (let i = 0; i < eventsData.length; i++) {
       if (eventsData[i].name === sortedEvents[i].name) {
         correctPositions.push(i);
-        //correctNames.push(sortedEvents[i].name);
         newCorrectNames.push(sortedEvents[i].name);
       }
     }
