@@ -32,8 +32,6 @@ Follow these steps to install and run the app locally:
 
 ## How to Play
 
-Provide instructions on how to play each game in your app, including any rules or objectives.
-
 ### PopulationGuessr
 
 Pretty self explanatory, guess if the country on the right has higher or lower population than the country on the left.
