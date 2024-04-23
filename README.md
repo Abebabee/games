@@ -19,7 +19,7 @@ Include screenshots or GIFs of your app here to give users a visual preview.
 
 Follow these steps to install and run the app locally:
 
-1. Clone the repository: `git clone [https://github.com/your-username/your-repository.git](https://github.com/Abebabee/games)`
+1. Clone the repository: `git clone https://github.com/Abebabee/games`
 2. Navigate to the project directory: `cd your-project-directory`
 3. Install dependencies: `npm install` or `yarn install`
 4. Start the development server: `npm run dev` or `yarn dev`
