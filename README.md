@@ -28,7 +28,6 @@ Follow these steps to install and run the app locally:
 ## Roadmap(ish)
 - [ ] sql db
 - [ ] GCS?
-- [ ] Fix issue with X component not rendering correctly
 - [ ] Mobile friendly
 - [ ] Testing
 
