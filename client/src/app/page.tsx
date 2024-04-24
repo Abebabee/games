@@ -12,6 +12,8 @@ const IndexPage = () => {
             description={
               "Guess if country has higher or lower population than the other country"
             }
+            scoreType="Highscore"
+            score={4}
           />
           <GameCard
             gameName={"TimeLined"}
@@ -20,6 +22,8 @@ const IndexPage = () => {
             description={
               "Drag historical events in the correct order in 3 tries (updates daily)"
             }
+            scoreType="Streak"
+            score={4}
           />
           <GameCard
             gameName={"WorldWits"}
@@ -28,6 +32,8 @@ const IndexPage = () => {
             description={
               "Guess the famous location based on as few hints as possible (updates daily)"
             }
+            scoreType="Streak"
+            score={4}
           />
           <GameCard
             gameName={"BehindYou"}
@@ -36,6 +42,8 @@ const IndexPage = () => {
             description={
               "You are looking away from a famous building/location, guess where! (updates daily)"
             }
+            scoreType="Streak"
+            score={4}
           />
         </div>
       </div>

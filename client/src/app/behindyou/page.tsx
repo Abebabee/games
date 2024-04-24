@@ -37,7 +37,7 @@ const BehindYou = () => {
       setBg("bg-green");
       setIsModalOpen(true);
     } else {
-      if (guesses === 0) {
+      if (guesses === 1) {
         setResult("Lose");
         setGameoverMsg("You didn't solve todays game, try again tomorrow!");
         setBg("bg-primary");

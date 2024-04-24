@@ -6,9 +6,11 @@ interface GameCardProps {
   imageUrl: string;
   description: string;
   gameUrl: string;
+  scoreType: string;
+  score: number;
 }
 
-const GameCard = ({ gameName, imageUrl, description, gameUrl }: GameCardProps) => {
+const GameCard = ({ gameName, imageUrl, description, gameUrl, scoreType, score }: GameCardProps) => {
   return (
     <div className="max-w-sm bg-card border border-border overflow-hidden rounded-lg shadow text-foreground">
       <img
@@ -25,7 +27,7 @@ const GameCard = ({ gameName, imageUrl, description, gameUrl }: GameCardProps) =
         <div className="text-muted_foreground text-center">{description}</div>
         <div className="flex justify-between mt-4">
           <div className="text-center">
-            <p>Highscore: <span className="text-primary">0</span></p>
+            <p>{scoreType}: <span className="text-primary">{score}</span></p>
           </div>
           <Button name="Play" href={gameUrl}/>
         </div>

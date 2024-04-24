@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import Button from "../Button";
 
 interface ModalProps {
   header: string;
@@ -9,7 +8,7 @@ interface ModalProps {
 }
 const Modal = ({ header, text, color, onClose }: ModalProps) => {
   return (
-    <div className="fixed top-0 left-0 w-full h-full flex justify-center backdrop-blur-sm items-center"
+    <div className="fixed top-0 left-0 w-full h-full flex justify-center backdrop-blur-sm items-center z-20"
     onClick={onClose}>
       <div
         className={`p-6 flex flex-col justify-center items-center text-center rounded-lg shadow-lg ${color}`}
