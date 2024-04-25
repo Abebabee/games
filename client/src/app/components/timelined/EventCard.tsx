@@ -41,6 +41,9 @@ const EventCard: React.FC<EventCardProps> = ({
     updateYear(name, year);
   }, [position]);
 
+  useEffect(()=>{
+    setPosition({x:0,y:0})
+  },[])
   //Update pos on drag
   const trackPos = (data: any) => {
     setPosition({ x: data.x, y: data.y });

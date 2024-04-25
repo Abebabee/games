@@ -42,7 +42,7 @@ const WorldWits: React.FC = () => {
       userInput.toLowerCase(),
       famousLocation.name.toLowerCase()
     );
-    if (similarity >= 0.8) {
+    if (similarity >= 0.7) {
       setResult("Win");
       setGameoverMsg(
         "You solved it in " + (5 - guesses) + " tries, see you tomorrow!"

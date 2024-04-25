@@ -29,7 +29,8 @@ const BehindYou = () => {
     setGuesses(guesses - 1);
     //Dice coefficient to check similarity of guess and actual name
     const similarity = stringSimilarity(userInput.toLowerCase(), location);
-    if (similarity >= 0.8) {
+    console.log(similarity)
+    if (similarity >= 0.7) {
       setResult("Win");
       setGameoverMsg(
         "You solved it in " + (5 - guesses) + " tries, see you tomorrow!"
