@@ -3,10 +3,17 @@ import React, { useEffect, useState } from "react";
 import EventCard from "../components/timelined/EventCard";
 import Button from "../components/Button";
 import { FaHeart, FaHeartBroken } from "react-icons/fa";
+import Modal from "../components/modal";
+import { useRouter } from "next/navigation";
 
 const TimeLined: React.FC = () => {
   const [guessesLeft, setGuessesLeft] = useState(3);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [gameoverMsg, setGameoverMsg] = useState("");
+  const router = useRouter();
+  const [result, setResult] = useState("");
+  const [bg, setBg] = useState("");
   const [eventsData, setEventsData] = useState<
     { name: string; year: string }[]
   >([]);
@@ -18,7 +25,7 @@ const TimeLined: React.FC = () => {
     { year: "1 CE", position: "50%" },
     { year: "2000 CE", position: "100%" },
   ];
-  //Dummy data for testing
+  //Dummy data for testing, will probably add some db later
   const historicalEvents = [
     {
       name: "Columbus Reaches the Americas",
@@ -64,11 +71,14 @@ const TimeLined: React.FC = () => {
       }
     }
     if (correctPositions.length === eventsData.length) {
-      console.log("CORRECT!");
+      setBg("bg-card");
+      setResult("Win");
+      setGameoverMsg("Well done, you solved it!");
+      setIsModalOpen(true);
     } else if (correctPositions.length > 0) {
       setCorrectGuesses(correctGuesses);
     }
-    setCorrectNames(newCorrectNames)
+    setCorrectNames(newCorrectNames);
   };
 
   //Sorts events by lowest->highest year
@@ -87,10 +97,21 @@ const TimeLined: React.FC = () => {
 
   const sortedEvents = sortByYear(historicalEvents);
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    router.push('/');
+  };
+
   const handleSubmit = () => {
     compareEvents();
     setIsSubmitted(true);
     setGuessesLeft(guessesLeft - 1);
+    if (guessesLeft === 1) {
+      setBg("bg-card");
+      setResult("Loss");
+      setGameoverMsg("Maybe next time!");
+      setIsModalOpen(true);
+    }
   };
   useEffect(() => {
     setEventsData(
@@ -108,6 +129,7 @@ const TimeLined: React.FC = () => {
   };
   return (
     <div className="min-h-[calc(100vh-4rem)] bg-background">
+      {isModalOpen && (<Modal header={result} text={gameoverMsg} color={bg} onClose={handleCloseModal}></Modal>)}
       <div>
         <div className="flex flex-col justify-center items-center p-8">
           <div className="text-primary text-lg font-semibold">TimeLined</div>
