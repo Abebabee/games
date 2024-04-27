@@ -122,7 +122,7 @@ const HigherLower = () => {
           buttonText="New game"
         ></Modal>
       )}
-      <div className="absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-4 bg-accent rounded-full border-2 border-primary">
+      <div className="relative lg:absolute z-10 lg:top-1/2 lg:left-1/2 transform lg:-translate-x-1/2 lg:-translate-y-1/2 p-4 bg-accent lg:rounded-full lg:border-2 border-primary text-center">
         <p className="text-lg text-foreground">
           Score: <span className="text-primary">{score}</span>
         </p>

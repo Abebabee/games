@@ -10,7 +10,7 @@ const LeftCard = ({countryName, imgUrl, population}: LeftCardProps) => {
         <div>
           <img
             alt=""
-            className="h-60 w-full object-cover"
+            className="min-h-40 max-h-60 w-full object-cover"
             src={imgUrl}
             style={{
               aspectRatio: "400/300",
