@@ -132,7 +132,7 @@ const HigherLower = () => {
           <LeftCard
             countryName={leftCountry}
             imgUrl={leftUrl}
-            population={leftPopulation}
+            population={leftPopulation.toLocaleString()}
           />
         </div>
         <div className="bg-background flex justify-center items-center">
