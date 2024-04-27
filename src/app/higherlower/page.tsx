@@ -30,7 +30,7 @@ const HigherLower = () => {
       if (score > 0) {
         setResult("Score: " + score);
         setGameoverMsg("Try again!");
-        setBg("bg-card")
+        setBg("bg-card");
         setIsModalOpen(true);
       }
       setScore(0);
@@ -132,7 +132,7 @@ const HigherLower = () => {
           <LeftCard
             countryName={leftCountry}
             imgUrl={leftUrl}
-            population={leftPopulation.toLocaleString()}
+            population={leftPopulation}
           />
         </div>
         <div className="bg-background flex justify-center items-center">
