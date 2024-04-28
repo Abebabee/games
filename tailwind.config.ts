@@ -30,7 +30,8 @@ const config: Config = {
         border: "var(--border)",
         input: "var(--input)",
         ring: "var(--ring)",
-        green: "var(--green)"
+        green: "var(--green)",
+        orange: "var(--orange)"
       },
       borderRadius: {
         DEFAULT: "var(--radius)",

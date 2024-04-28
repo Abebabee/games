@@ -26,6 +26,7 @@
     --ring: hsl(346.8, 77.2%, 49.8%);
     --radius: 0.5rem;
     --green: hsl(98, 74%, 35%);
+    --orange: hsl(12, 93%, 52%);
   }
 
   .dark {

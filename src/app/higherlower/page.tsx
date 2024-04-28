@@ -5,10 +5,14 @@ import LeftCard from "../components/higherlower/LeftCard";
 import RightCard from "../components/higherlower/RightCard";
 import Modal from "../components/modal";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import { FaFire } from "react-icons/fa";
 
 const HigherLower = () => {
   const router = useRouter();
   const [score, setScore] = useState(0);
+  const [highscore, setHighscore] = useState(0);
+  const [isHighscore, setIsHighscore] = useState(false);
   const [countryNames, setCountryNames] = useState<string[]>([]);
   const [rightCountry, setRightCountry] = useState<any>();
   const [rightPopulation, setRightPopulation] = useState<any>();
@@ -21,11 +25,21 @@ const HigherLower = () => {
   const [result, setResult] = useState("");
   const [bg, setBg] = useState("");
 
+
+
   const isCorrectGuess = (guess: boolean) => {
     if (rightPopulation > leftPopulation && guess) {
       setScore(score + 1);
+      if(score>highscore){
+        setIsHighscore(true);
+        Cookies.set("highscore",(score+1).toString());
+      }
     } else if (rightPopulation < leftPopulation && !guess) {
       setScore(score + 1);
+      if(score>highscore){
+        setIsHighscore(true);
+        Cookies.set("highscore",(score+1).toString());
+      }
     } else {
       if (score > 0) {
         setResult("Score: " + score);
@@ -66,6 +80,12 @@ const HigherLower = () => {
     setIsModalOpen(false);
   };
 
+  useEffect(()=>{
+    const savedHighscore = Cookies.get("highscore");
+    if(savedHighscore){
+      setHighscore(parseInt(savedHighscore));
+    }
+  },[])
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all?fields=name")
       .then((res) => res.json())
@@ -123,8 +143,8 @@ const HigherLower = () => {
         ></Modal>
       )}
       <div className="relative lg:absolute z-10 lg:top-1/2 lg:left-1/2 transform lg:-translate-x-1/2 lg:-translate-y-1/2 p-4 bg-accent lg:rounded-full lg:border-2 border-primary text-center">
-        <p className="text-lg text-foreground">
-          Score: <span className="text-primary">{score}</span>
+        <p className="text-lg text-foreground flex flex-row justify-center items-center">
+          Score: <span className="text-primary px-2">{score}</span> {isHighscore && (<FaFire className="text-orange"></FaFire>)}
         </p>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[calc(100vh-4rem)] bg-background text-foreground divide-y-4 lg:divide-x-4 lg:divide-y-0 divide-primary">
