@@ -1,6 +1,22 @@
+"use client"
+import { useEffect, useState } from "react";
 import GameCard from "./components/GameCard";
+import Cookies from "js-cookie";
 
 const IndexPage = () => {
+  const [populationHighscore, setPopulationHighscore] = useState(0);
+  const [timelinedStreak, setTimelinedStreak] = useState(0);
+  const [worldwitsStreak, setWorldwitsStreak] = useState(0);
+  const [behindyouStreak, setBehindyouStreak] = useState(0);
+
+  useEffect(() => {
+    const savedHighscore = Cookies.get("highscore");
+    console.log("Hej!")
+    if (savedHighscore) {
+      setPopulationHighscore(parseInt(savedHighscore));
+    }
+  }, []);
+
   return (
     <section className="flex justify-center items-center min-h-[calc(100vh-4rem)] p-6 bg-background">
       <div className="container mx-auto">
@@ -13,7 +29,7 @@ const IndexPage = () => {
               "Guess if country has higher or lower population than the other country"
             }
             scoreType="Highscore"
-            score={4}
+            score={populationHighscore}
           />
           <GameCard
             gameName={"TimeLined"}

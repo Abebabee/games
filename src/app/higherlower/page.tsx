@@ -32,13 +32,13 @@ const HigherLower = () => {
       setScore(score + 1);
       if(score>highscore){
         setIsHighscore(true);
-        Cookies.set("highscore",(score+1).toString());
+        Cookies.set("highscore",(score+1).toString(),{expires:365});
       }
     } else if (rightPopulation < leftPopulation && !guess) {
       setScore(score + 1);
       if(score>highscore){
         setIsHighscore(true);
-        Cookies.set("highscore",(score+1).toString());
+        Cookies.set("highscore",(score+1).toString(),{expires:365});
       }
     } else {
       if (score > 0) {
