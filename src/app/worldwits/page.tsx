@@ -45,7 +45,7 @@ const WorldWits: React.FC = () => {
     if (similarity >= 0.7) {
       setResult("Win");
       setGameoverMsg(
-        "You solved it in " + (5 - guesses) + " tries, see you tomorrow!"
+        "You solved it in " + (6 - guesses) + " tries, see you tomorrow!"
       );
       setBg("bg-green");
       setIsModalOpen(true);
