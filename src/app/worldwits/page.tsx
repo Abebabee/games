@@ -7,6 +7,10 @@ import { FaHeart, FaHeartBroken } from "react-icons/fa";
 import Modal from "../components/modal";
 import { useRouter } from "next/navigation";
 
+interface famousLocation {
+  name: string;
+  hints: string[5];
+}
 const WorldWits: React.FC = () => {
   const router = useRouter();
   const [userInput, setUserInput] = useState("");
@@ -15,7 +19,8 @@ const WorldWits: React.FC = () => {
   const [gameoverMsg, setGameoverMsg] = useState("");
   const [result, setResult] = useState("");
   const [bg, setBg] = useState("");
-
+  const [location, setLocation] = useState("");
+  const [hints, setHints] = useState<string[]>([]);
   const famousLocation = {
     name: "Eiffel Tower",
     hints: [
@@ -34,6 +39,20 @@ const WorldWits: React.FC = () => {
       handleSubmit();
     }
   };
+  const fetchLocations = () => {
+    fetch(
+      "https://script.googleusercontent.com/macros/echo?user_content_key=9HOTY_-J5mbftB3HrCg8VPrMivl4Tgc9s2_A5sy10P4zD_JFONnO7FyvtbJNvPeh1OES7leRjF0bIBAV3wrWRMxd_XJ5vSkgm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnEz3f5htoi7lbb7Oe3ZgAVg3jn3DPw7hwnzZC-NQCu0xo67lCt0G4OVvjji2VPx1grXXUUSxoGeKyQjd7dMID-hD46dGIcX8vtz9Jw9Md8uu&lib=Mdvo9WQE0uMRFYwASCKGaOs3oQZ0F0ENL"
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        //rand 0-data.data.length
+        //setName = data.data[rand].name
+        setLocation(data.data[0].name);
+        setHints(data.data[0].hints);
+      })
+      .catch((error) => console.error(error));
+  };
+  fetchLocations();
 
   const handleSubmit = () => {
     setGuesses(guesses - 1);
@@ -52,7 +71,7 @@ const WorldWits: React.FC = () => {
     } else {
       if (guesses === 1) {
         setResult("Lose");
-        setGameoverMsg("You didn't solve todays game, try again tomorrow!");
+        setGameoverMsg("The correct answer was "+location+", try again tomorrow!");
         setBg("bg-primary");
         setIsModalOpen(true);
       } else {
@@ -62,7 +81,7 @@ const WorldWits: React.FC = () => {
   };
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    router.push('/');
+    router.push("/");
   };
 
   return (
@@ -100,14 +119,18 @@ const WorldWits: React.FC = () => {
         <div className="space-y-2 max-w-sm">
           <div>
             <div className="underline">Hint 1:</div>
-            <div>{famousLocation.hints[0]}</div>
+            {hints && <div>{hints[0]}</div>}
           </div>
-          {famousLocation.hints.slice(1, 6 - guesses).map((hint, index) => (
-            <div key={index}>
-              <div className="underline">Hint {index + 2}:</div>
-              <div>{hint}</div>
+          {hints && (
+            <div>
+              {hints.slice(1, 6 - guesses).map((hint, index) => (
+                <div key={index}>
+                  <div className="underline">Hint {index + 2}:</div>
+                  <div>{hint}</div>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
         <div>
           <input
